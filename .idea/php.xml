@@ -13,11 +13,22 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$USER_HOME$/Local Sites/site-import-for-gbp/app/public" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/deliciousbrains/wp-background-processing" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.0" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.2">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
+  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
+  </component>
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
+    </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
     <option name="transferred" value="true" />

@@ -12,4 +12,12 @@
  * @package         Site_Import_For_Gbp
  */
 
-// Your code starts here.
+use Koen12344\SiteImportForGbp\Plugin;
+
+require __DIR__.'/vendor/autoload.php';
+
+register_activation_hook(__FILE__, ['\Koen12344\SiteImportForGbp\Plugin', 'activate']);
+register_deactivation_hook(__FILE__, ['\Koen12344\SiteImportForGbp\Plugin', 'deactivate']);
+
+$site_import_for_gbp = new Plugin(__FILE__);
+add_action('after_setup_theme', [$site_import_for_gbp, 'init']);

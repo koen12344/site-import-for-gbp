@@ -1,0 +1,99 @@
+name: Build plugin
+on:
+  push:
+    if: startsWith(github.ref, 'refs/tags/v')
+    branches:
+      - main
+      - beta
+      - pending
+jobs:
+  create-release:
+
+    runs-on: ubuntu-latest
+    env:
+      FS_USER_ID: ${{ secrets.FS_USER_ID }}
+      FS_PLUGIN_ID: ${{ secrets.FS_PLUGIN_ID }}
+      FS_PUBLIC_KEY: ${{ secrets.FS_PUBLIC_KEY }}
+      FS_SECRET_KEY: ${{ secrets.FS_SECRET_KEY }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Write release version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          echo Version: $VERSION
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Set up Strauss
+        run: |
+          curl -o strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar
+          chmod +x strauss.phar
+          mv strauss.phar /usr/local/bin/strauss
+
+      - name: Set up WP-CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          mv wp-cli.phar /usr/local/bin/wp
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+
+      - name: Create build directory
+        run: rsync -av --exclude='.git' --exclude-from='.gitignore' . site-import-for-gbp
+
+      - name: NPM Install & Build
+        working-directory: ./site-import-for-gbp
+        run: |
+          npm install
+          npm run build
+
+      - name: Generate POT & Json files
+        working-directory: ./site-import-for-gbp
+        run: |
+          wp i18n make-pot . languages/site-import-for-gbp.pot --exclude="src/js"
+          wp i18n make-json languages
+
+      - name: Composer install
+        working-directory: ./site-import-for-gbp
+        run: |
+          mkdir vendor-prefixed
+          composer install --no-dev --classmap-authoritative --prefer-dist
+          composer dump-autoload -a --ignore-platform-reqs
+
+      - name: Download Freemius SDK
+        working-directory: ./site-import-for-gbp
+        run: wget https://github.com/Freemius/wordpress-sdk/archive/master.zip -O wordpress-sdk-master.zip && unzip wordpress-sdk-master.zip && rm wordpress-sdk-master.zip && mv wordpress-sdk-master freemius
+      #        run: |
+      #          mkdir freemius
+      #          wget https://freemius.s3.us-west-2.amazonaws.com/sdk-security-releases/wordpress-sdk-2.5.10.zip -O wordpress-sdk-2.5.10.zip && unzip -d freemius -P WeLoveOpenSource!!! wordpress-sdk-2.5.10.zip && rm wordpress-sdk-2.5.10.zip
+
+      - name: Delete distignored files
+        working-directory: ./site-import-for-gbp
+        run: grep -v "^#" .distignore | xargs rm -rf
+
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
+      - name: Zip plugin
+        run: zip -qq -r site-import-for-gbp.zip site-import-for-gbp
+
+      - name: Download freemius PHP SDK
+        run: git clone https://github.com/Freemius/php-sdk.git "./bin/freemius-php-api"
+
+      - name: Upload plugin to Freemius
+        run: |
+          RELEASE_STATE="pending"
+          if [[  "${GITHUB_REF##*/}"  == "beta" ]]; then
+              RELEASE_STATE="beta"
+          elif [[  "${GITHUB_REF##*/}"  == "main" ]]; then
+              RELEASE_STATE="released"
+          fi
+          php bin/freemius-deploy.php $FS_USER_ID $FS_PUBLIC_KEY $FS_SECRET_KEY site-import-for-gbp.zip $FS_PLUGIN_ID false $VERSION $RELEASE_STATE
+

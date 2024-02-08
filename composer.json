@@ -1,0 +1,44 @@
+{
+    "name": "koen12344/site-import-for-gbp",
+    "description": "Site Import for GBP will import your Google My Business posts, images, reviews and other data into your WordPress website",
+    "type": "project",
+    "license": "GNU General Public License",
+    "autoload": {
+        "psr-4": {
+            "Koen12344\\SiteImportForGbp\\": "src/php/"
+        },
+        "classmap": ["vendor-prefixed"]
+    },
+    "authors": [
+        {
+            "name": "Koen Reus",
+            "email": "koen@koenreus.com"
+        }
+    ],
+    "require": {
+        "deliciousbrains/wp-background-processing": "^1.2",
+        "psr/container": "^2.0",
+      "ext-json": "*",
+        "firebase/php-jwt": "^6.10"
+    },
+    "scripts": {
+      "strauss": [
+        "/usr/local/bin/strauss"
+      ],
+      "post-install-cmd": [
+        "@strauss"
+      ],
+      "post-update-cmd": [
+        "@strauss"
+      ]
+    },
+    "extra": {
+      "strauss": {
+        "target_directory": "vendor-prefixed",
+        "namespace_prefix": "SIFG\\Vendor\\",
+        "classmap_prefix": "SIFG_Vendor_",
+        "constant_prefix": "SIFG_Vendor_",
+        "delete_vendor_files": true
+      }
+    }
+}

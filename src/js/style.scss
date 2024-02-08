@@ -1,0 +1,253 @@
+* {
+	box-sizing: inherit;
+}
+
+#wpcontent {
+	padding-left: 0;
+}
+
+.auto-fold {
+	#wpcontent {
+		padding-left: 0;
+	}
+}
+
+button .components-spinner {
+	width: 15px;
+	height: 15px;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+}
+.form-buttons {
+	display: flex;
+}
+.psfg-modal-form .form-buttons {
+	margin-top: 20px;
+	margin-left: 1px;
+}
+.form-error {
+	color: #cc1818;
+}
+.form-buttons button, .form-buttons a {
+	margin-right: 4px;
+}
+.form-buttons .components-spinner {
+	margin-top: 0;
+}
+
+#sifg-admin-page {
+	.components-editor-notices__snackbar{
+		bottom: 40px;
+		padding-left: 16px;
+		padding-right: 16px;
+		position: fixed;
+	}
+	.components-placeholder {
+		background: #f6f6f6;
+		margin-top: 25vh;
+		margin-bottom: 25vh;
+	}
+
+	.sifg-header {
+		padding: 20px 10px 20px 10px;
+		background-color: #ffffff;
+		box-shadow: 0 1px 0 rgba(213,213,213,0.5),0 1px 2px #eee;
+
+		.sifg-container {
+			margin: 0 auto;
+			max-width: 750px; //930px
+
+			.sifg-logo {
+				display: flex;
+				align-items: center;
+
+				img {
+					margin-right:10px;
+				}
+			}
+
+		}
+
+		.sifg-navigation {
+			display: flex;
+			flex-wrap: wrap;
+			font-size: 15px;
+			font-weight: 600;
+			line-height: 1.5;
+			list-style: none;
+			padding-top: 25px;
+			text-decoration: none;
+
+			button {
+				background: none;
+				border: 0;
+				border-bottom-color: currentcolor;
+				border-bottom-style: none;
+				border-bottom-width: 0px;
+				cursor: pointer;
+				display: inline-flex;
+				margin: 0;
+
+				&.is-active {
+					border-bottom: 4px solid var(--wp-admin-theme-color);
+					span {
+						color: #282828;
+						cursor: default;
+					}
+				}
+				span {
+					color: #868686;
+					cursor: pointer;
+					font-family: Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+					font-size: 21px;
+					font-weight: 400;
+					letter-spacing: 0;
+					line-height: 25px;
+					padding: 0 16px 16px;
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+	.sifg-settings-main {
+		margin-left: auto;
+		margin-right: auto;
+		max-width: 750px; //930px
+		//display: grid;
+		//gap: 25px;
+		//grid-template-columns: 2fr 1fr;
+
+		.components-panel__body {
+			margin: 25px 0;
+			background: #fff;
+			border: 1px solid #e2e4e7;
+
+			.components-panel__body-toggle {
+				border-bottom: 1px solid #d6e2ed;
+			}
+
+			.components-panel__row {
+				padding: 10px;
+				margin: 0;
+
+				.components-base-control {
+					.components-base-control__field {
+						display: flex;
+						align-items: center;
+						margin-bottom: 10px;
+					}
+
+					&.codeinwp-text-field {
+						width: 100%;
+
+						.components-base-control__field {
+							display: block;
+
+							label {
+								font-weight: 600;
+								margin-bottom: 10px;
+							}
+
+							input {
+								height: 40px;
+							}
+
+							input, textarea {
+								border: 1px solid #b7c9d9;
+								border-radius: 3px;
+								font-size: 14px;
+								padding: 9px 15px;
+								width: 100%;
+								box-shadow: none;
+								margin: 0 0 10px 0;
+								color: #444;
+
+								&:disabled {
+									background: #f6f6f6;
+									border-color: #eeeeee;
+									color: #bbbbbb;
+								}
+
+								&:focus {
+									border-color: #00a0d2;
+									box-shadow: 0 0 0 1px #00a0d2;
+									outline: 2px solid transparent;
+									outline-offset: -2px;
+								}
+							}
+
+							.codeinwp-text-field-button-group {
+								display: flex;
+								align-items: center;
+								margin: 2px 0 15px;
+
+								.is-primary {
+									padding: 2px 20px;
+									height: auto;
+									font-size: 14px;
+									margin-right: 10px;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.sifg-info {
+			padding: 0 10px 10px;
+
+			h2 {
+				font-weight: 300;
+				margin-bottom: 10px;
+			}
+
+			p {
+				margin: 0 0 1.5em 0;
+			}
+
+			img {
+				float:right;
+			}
+
+		}
+	}
+}
+
+
+.sifg-connect {
+	width:100%;
+}
+
+.sifg-location-selector {
+	width:100%;
+	margin-top:10px;
+	.sifg-selector-controls-top{
+		display:flex;
+		justify-content: space-between;
+		align-items: flex-end;
+
+		button {
+			margin-bottom:10px;
+		}
+	}
+
+	.wp-list-table .form-buttons{
+		justify-content: flex-end;
+	}
+
+	.sifg-selector-controls-bottom {
+		display:flex;
+		justify-content: flex-end;
+
+		button {
+			margin-top:10px;
+		}
+	}
+}
+
+.sifg-disconnect-button{
+	margin-top:20px;
+}
