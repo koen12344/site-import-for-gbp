@@ -19,7 +19,8 @@
         "deliciousbrains/wp-background-processing": "^1.2",
         "psr/container": "^2.0",
       "ext-json": "*",
-        "firebase/php-jwt": "^6.10"
+        "firebase/php-jwt": "^6.10",
+      "ext-mbstring": "*"
     },
     "scripts": {
       "strauss": [

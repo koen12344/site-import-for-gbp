@@ -10,7 +10,7 @@ class BackgroundProcessConfiguration implements ContainerConfigurationInterface 
 
 	public function modify( Container $container ) {
 		$container['service.import_process'] = $container->service(function(Container $container){
-			return new BackgroundProcess($container['user_manager'], $container['google_my_business_api']);
+			return new BackgroundProcess($container['user_manager'], $container['google_my_business_api'], $container['service.import_logger']);
 		});
 	}
 }

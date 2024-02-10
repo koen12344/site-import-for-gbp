@@ -1,20 +1,25 @@
 name: Build plugin
+#on:
+#  push:
+#    if: startsWith(github.ref, 'refs/tags/v')
+#    branches:
+#      - main
+#      - beta
+#      - pending
+
 on:
   push:
-    if: startsWith(github.ref, 'refs/tags/v')
-    branches:
-      - main
-      - beta
-      - pending
+    tags:
+      - 'v*'
 jobs:
   create-release:
 
     runs-on: ubuntu-latest
-    env:
-      FS_USER_ID: ${{ secrets.FS_USER_ID }}
-      FS_PLUGIN_ID: ${{ secrets.FS_PLUGIN_ID }}
-      FS_PUBLIC_KEY: ${{ secrets.FS_PUBLIC_KEY }}
-      FS_SECRET_KEY: ${{ secrets.FS_SECRET_KEY }}
+#    env:
+#      FS_USER_ID: ${{ secrets.FS_USER_ID }}
+#      FS_PLUGIN_ID: ${{ secrets.FS_PLUGIN_ID }}
+#      FS_PUBLIC_KEY: ${{ secrets.FS_PUBLIC_KEY }}
+#      FS_SECRET_KEY: ${{ secrets.FS_SECRET_KEY }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -67,9 +72,9 @@ jobs:
           composer install --no-dev --classmap-authoritative --prefer-dist
           composer dump-autoload -a --ignore-platform-reqs
 
-      - name: Download Freemius SDK
-        working-directory: ./site-import-for-gbp
-        run: wget https://github.com/Freemius/wordpress-sdk/archive/master.zip -O wordpress-sdk-master.zip && unzip wordpress-sdk-master.zip && rm wordpress-sdk-master.zip && mv wordpress-sdk-master freemius
+#      - name: Download Freemius SDK
+#        working-directory: ./site-import-for-gbp
+#        run: wget https://github.com/Freemius/wordpress-sdk/archive/master.zip -O wordpress-sdk-master.zip && unzip wordpress-sdk-master.zip && rm wordpress-sdk-master.zip && mv wordpress-sdk-master freemius
       #        run: |
       #          mkdir freemius
       #          wget https://freemius.s3.us-west-2.amazonaws.com/sdk-security-releases/wordpress-sdk-2.5.10.zip -O wordpress-sdk-2.5.10.zip && unzip -d freemius -P WeLoveOpenSource!!! wordpress-sdk-2.5.10.zip && rm wordpress-sdk-2.5.10.zip
@@ -84,16 +89,40 @@ jobs:
       - name: Zip plugin
         run: zip -qq -r site-import-for-gbp.zip site-import-for-gbp
 
-      - name: Download freemius PHP SDK
-        run: git clone https://github.com/Freemius/php-sdk.git "./bin/freemius-php-api"
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
 
-      - name: Upload plugin to Freemius
-        run: |
-          RELEASE_STATE="pending"
-          if [[  "${GITHUB_REF##*/}"  == "beta" ]]; then
-              RELEASE_STATE="beta"
-          elif [[  "${GITHUB_REF##*/}"  == "main" ]]; then
-              RELEASE_STATE="released"
-          fi
-          php bin/freemius-deploy.php $FS_USER_ID $FS_PUBLIC_KEY $FS_SECRET_KEY site-import-for-gbp.zip $FS_PLUGIN_ID false $VERSION $RELEASE_STATE
+      # This step uploads an asset, under the release created in the above step
+      - name: Upload Release Asset
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./deployment-info-for-fs.zip
+          asset_name: deployment-info-for-fs.zip
+          asset_content_type: application/zip
+
+
+#      - name: Download freemius PHP SDK
+#        run: git clone https://github.com/Freemius/php-sdk.git "./bin/freemius-php-api"
+#
+#      - name: Upload plugin to Freemius
+#        run: |
+#          RELEASE_STATE="pending"
+#          if [[  "${GITHUB_REF##*/}"  == "beta" ]]; then
+#              RELEASE_STATE="beta"
+#          elif [[  "${GITHUB_REF##*/}"  == "main" ]]; then
+#              RELEASE_STATE="released"
+#          fi
+#          php bin/freemius-deploy.php $FS_USER_ID $FS_PUBLIC_KEY $FS_SECRET_KEY site-import-for-gbp.zip $FS_PLUGIN_ID false $VERSION $RELEASE_STATE
 

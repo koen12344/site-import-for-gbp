@@ -12,6 +12,8 @@
 	}
 }
 
+
+
 button .components-spinner {
 	width: 15px;
 	height: 15px;
@@ -37,6 +39,10 @@ button .components-spinner {
 }
 
 #sifg-admin-page {
+	--wp-admin-theme-color:#88b06a;
+	--wp-admin-theme-color-darker-10:#7a9e5f;
+	--wp-admin-theme-color-darker-20:#526b40;
+
 	.components-editor-notices__snackbar{
 		bottom: 40px;
 		padding-left: 16px;
@@ -64,6 +70,7 @@ button .components-spinner {
 
 				img {
 					margin-right:10px;
+					border-radius:10px;
 				}
 			}
 

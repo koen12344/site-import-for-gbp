@@ -42,3 +42,4 @@ node_modules
 *.tar.gz
 *.zip
 src/js
+assets

@@ -1,0 +1,271 @@
+# Copyright (C) 2024 Koen Reus
+# This file is distributed under the same license as the Site Import for Google Business Profile (Google My Business) plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Site Import for Google Business Profile (Google My Business) 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/site-import-for-gbp\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-02-10T14:40:08+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.9.0\n"
+"X-Domain: site-import-for-gbp\n"
+
+#. Plugin Name of the plugin
+msgid "Site Import for Google Business Profile (Google My Business)"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://tycoonmedia.net"
+msgstr ""
+
+#. Description of the plugin
+msgid "Site Import for GBP will import your Google My Business posts, images, reviews and other data into your WordPress website"
+msgstr ""
+
+#. Author of the plugin
+msgid "Koen Reus"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://koenreus.com"
+msgstr ""
+
+#: src/php/Admin/AdminPage.php:28
+#: src/php/Admin/AdminPage.php:32
+#: build/index.js:1
+msgid "Site Import for GBP"
+msgstr ""
+
+#: src/php/API/GoogleMyBusiness.php:43
+msgid "Could not parse JSON response from Google API."
+msgstr ""
+
+#: src/php/API/ProxyAuthenticationAPI.php:56
+msgid "Could not parse JSON response from authentication server."
+msgstr ""
+
+#. translators: %1$s is the Google internal image ID, %2$s is the error message
+#: src/php/BackgroundProcessing/BackgroundProcess.php:71
+#: src/php/BackgroundProcessing/BackgroundProcess.php:332
+msgid "Failed to import image %1$s: %2$s"
+msgstr ""
+
+#: src/php/BackgroundProcessing/BackgroundProcess.php:112
+msgid "Undefined user Google user ID"
+msgstr ""
+
+#. translators: %1$s is internal Google Location ID, %2$s is the error message
+#: src/php/BackgroundProcessing/BackgroundProcess.php:121
+msgid "Failed to load posts for location %1$s: %2$s"
+msgstr ""
+
+#: src/php/BackgroundProcessing/BackgroundProcess.php:177
+msgid "Did not find any posts to import"
+msgstr ""
+
+#. translators: %1$d is WordPress post ID, %2$s is the error message
+#: src/php/BackgroundProcessing/BackgroundProcess.php:231
+msgid "Updated already imported post %1$d: %2$s"
+msgstr ""
+
+#. translators: %1$d is WordPress post ID, %2$s is the title of the imported post
+#: src/php/BackgroundProcessing/BackgroundProcess.php:234
+msgid "Imported post %1$d: %2$s"
+msgstr ""
+
+#: src/php/BackgroundProcessing/BackgroundProcess.php:242
+msgid "-- 50 post limit reached --"
+msgstr ""
+
+#. translators: %1$s is the Google internal location ID, %2$s is the error message
+#: src/php/BackgroundProcessing/BackgroundProcess.php:259
+msgid "Failed to load Gallery images from %1$s: %2$s"
+msgstr ""
+
+#: src/php/BackgroundProcessing/BackgroundProcess.php:284
+msgid "Did not find any gallery images to import"
+msgstr ""
+
+#: src/php/BackgroundProcessing/BackgroundProcess.php:301
+msgid "-- 100 image limit reached --"
+msgstr ""
+
+#. translators: %s is the Google internal image ID
+#: src/php/BackgroundProcessing/BackgroundProcess.php:323
+msgid "Skipping image %s, already imported before"
+msgstr ""
+
+#. translators: %s is Google Image ID
+#: src/php/BackgroundProcessing/BackgroundProcess.php:339
+msgid "Imported gallery image %s into Media library"
+msgstr ""
+
+#: src/php/RestAPI/GetGroupLocationsEndpoint.php:57
+#: src/php/RestAPI/GetGroupsEndpoint.php:36
+msgid "Could not retrieve accounts or location groups from Google Business Profile"
+msgstr ""
+
+#: src/php/Subscribers/AdminPageSubscriber.php:53
+msgid "Site import for Google Business Profile"
+msgstr ""
+
+#: src/php/Subscribers/AdminPageSubscriber.php:54
+msgid "Import Posts, Reviews and Images from Google Business Profile"
+msgstr ""
+
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:39
+msgid "Retry"
+msgstr ""
+
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:45
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:63
+msgid "You do not have permission to add Google accounts"
+msgstr ""
+
+#. translators: %s is error message
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:52
+msgid "Could not generate authentication URL: %s"
+msgstr ""
+
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:60
+msgid "Invalid nonce"
+msgstr ""
+
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:66
+msgid "Did not receive authentication code"
+msgstr ""
+
+#. translators: %s is error message
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:72
+msgid "Could not obtain access tokens: %s"
+msgstr ""
+
+#. translators: %s is error message
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:80
+msgid "Could not verify Google access token: %s. Is the date & time on your server set correctly?"
+msgstr ""
+
+#. translators: %s is error message
+#: src/php/Subscribers/AuthenticationAdminPostSubscriber.php:83
+msgid "Could not verify Google access token: %s"
+msgstr ""
+
+#: build/index.js:1
+msgid "Group"
+msgstr ""
+
+#: build/index.js:1
+msgid "No account connected"
+msgstr ""
+
+#: build/index.js:1
+msgid "Start GBP website import"
+msgstr ""
+
+#: build/index.js:1
+msgid "Failed to load import log"
+msgstr ""
+
+#: build/index.js:1
+msgid "Could not check the state of the import"
+msgstr ""
+
+#: build/index.js:1
+msgid "Disconnect Google account"
+msgstr ""
+
+#: build/index.js:1
+msgid "Click the button below to connect the plugin to the Google account that contains the business location of which you want to import the website data."
+msgstr ""
+
+#: build/index.js:1
+msgid "Connect to Google Business Profile"
+msgstr ""
+
+#: build/index.js:1
+msgid "Import posts"
+msgstr ""
+
+#: build/index.js:1
+msgid "Will import your Google Business Profile posts with associated images"
+msgstr ""
+
+#: build/index.js:1
+msgid "Import gallery images"
+msgstr ""
+
+#: build/index.js:1
+msgid "Import location images into the media library"
+msgstr ""
+
+#: build/index.js:1
+msgid "Cancel"
+msgstr ""
+
+#: build/index.js:1
+msgid "Failed to dispatch the import"
+msgstr ""
+
+#: build/index.js:1
+msgid "Starting Import"
+msgstr ""
+
+#: build/index.js:1
+msgid "Next"
+msgstr ""
+
+#: build/index.js:1
+msgid "Import is currently in progress, and running in the background. You may stay here and wait for it to complete or leave this page. Up to you!"
+msgstr ""
+
+#: build/index.js:1
+msgid "Cancel import"
+msgstr ""
+
+#: build/index.js:1
+msgid "The import was completed, please review the log below and confirm"
+msgstr ""
+
+#: build/index.js:1
+msgid "Could not confirm import"
+msgstr ""
+
+#: build/index.js:1
+msgid "Confirming"
+msgstr ""
+
+#: build/index.js:1
+msgid "Confirm"
+msgstr ""
+
+#: build/index.js:1
+msgid "Checking if import is currently running"
+msgstr ""
+
+#: build/index.js:1
+msgid "Import wizard"
+msgstr ""
+
+#: build/index.js:1
+msgid "Got a question?"
+msgstr ""
+
+#: build/index.js:1
+msgid "Don't hesitate to reach out if you need any help."
+msgstr ""
+
+#: build/index.js:1
+msgid "Ask a question"
+msgstr ""
+
+#: build/index.js:1
+msgid "Docs"
+msgstr ""
+
+#: build/index.js:1
+msgid "Follow me on X"
+msgstr ""

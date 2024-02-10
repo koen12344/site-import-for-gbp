@@ -14,6 +14,10 @@
 
 use Koen12344\SiteImportForGbp\Plugin;
 
+if (version_compare(PHP_VERSION, '7.2', '<')) {
+	exit(sprintf('Site Import for GBP requires PHP 7.2 or higher. Your WordPress site is using PHP %s.', PHP_VERSION));
+}
+
 require __DIR__.'/vendor/autoload.php';
 
 register_activation_hook(__FILE__, ['\Koen12344\SiteImportForGbp\Plugin', 'activate']);

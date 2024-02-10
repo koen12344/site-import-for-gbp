@@ -3,7 +3,7 @@ import Header from "./Header";
 import {
 	Button, Icon,
 	PanelBody,
-	PanelRow,
+	PanelRow, Spinner,
 } from "@wordpress/components";
 import {__} from "@wordpress/i18n";
 import GoogleLocationSelector from "./GoogleLocationSelector";
@@ -13,58 +13,27 @@ import {useDispatch} from "@wordpress/data";
 import {store as noticesStore} from "@wordpress/notices";
 import Notifications from "./Notifications";
 import Wizard from "./Wizard";
+import MulsiteWarning from "./MultisiteWarning";
 
-const {plugin_url, support_url, auth_url, is_google_configured } = sifg_localize_admin;
+const {plugin_url, support_url, auth_url, is_google_configured, is_multisite} = sifg_localize_admin;
 
 
 
 export default function SettingsPage(){
 	const { createErrorNotice } = useDispatch( noticesStore );
 
-	const [pluginSettings, setPluginSettings] = useState({});
-
-	const [isSavingSettings, setSavingSettings] = useState(false);
-
-	const [settingsLoaded, setSettingsLoaded] = useState(false);
-
-	const [isGoogleConnected, setGoogleConnected ] = useState(is_google_configured);
-
-	const [wizardStarted, setWizardStarted] = useState(false);
-
-	const [wizardLocation, setWizardLocation] = useState(false);
-	const updateSetting = function(option, value){
-		const newvalue = {...pluginSettings, [option]: value};
-		setPluginSettings(newvalue);
-
-		saveSettings(newvalue);
-	}
-
-	const saveSettings = function(settings){
-		setSavingSettings(true);
-
-		apiFetch({path: '/sifg/v1/settings', data:{settings}, method:'POST'}).finally(() => setSavingSettings(false));
-	}
-
-	const disconnectGoogle = function(){
-		apiFetch({path: '/sifg/v1/account', method:'DELETE'}).finally();
-		setGoogleConnected( false);
-	}
-
-	const startWizard = function(location_id) {
-		setWizardStarted(true);
-		setWizardLocation(location_id);
-	}
+	// const [pluginSettings, setPluginSettings] = useState({});
 	//
-	// useEffect(() => {
-	// 	apiFetch({path: '/sifg/v1/settings'}).then((data) => {
-	// 		setPluginSettings({...pluginSettings, ...data});
-	// 		setSettingsLoaded(true);
-	// 	}).catch(() => {
-	// 		createErrorNotice(__("Could not load plugin settings", 'product-sync-for-gbp'), {
-	// 			type: 'snackbar',
-	// 		} );
-	// 	});
-	// }, []);
+	// const [isSavingSettings, setSavingSettings] = useState(false);
+	//
+	// const [settingsLoaded, setSettingsLoaded] = useState(false);
+
+
+
+
+
+
+
 
 
 	return (
@@ -77,33 +46,10 @@ export default function SettingsPage(){
 					>
 						<PanelRow>
 							<div className="sifg-connect">
-								{ !wizardStarted ? !isGoogleConnected ?
-									(
-										<Fragment>
-											<p>{__('Click the button below to connect the plugin to the Google account that contains the business location of which you want to import the website data.', 'site-import-for-gbp')}</p>
-											<Button
-												isPrimary
-												variant="primary"
-												icon={() => <Icon icon='google'/>}
-												href={auth_url}
-											>{__('Connect to Google Business Profile', 'site-import-for-gbp')}</Button>
-										</Fragment>
-									)
-									:
-									(
-										<Fragment>
-											<GoogleLocationSelector
-												isGoogleConfigured={isGoogleConnected}
-												startWizard={startWizard}
-											/>
-											<Button onClick={disconnectGoogle} isPrimary isDestructive icon={() => <Icon icon='google'/>} variant='primary' className='sifg-disconnect-button'>{__('Disconnect Google account', 'site-import-for-gbp')}</Button>
-										</Fragment>
-									)
-									:
-									(
-										<Wizard location={wizardLocation} setWizardStarted={setWizardStarted}/>
-									)
+								{
+									is_multisite ? <MulsiteWarning /> : <Wizard/>
 								}
+
 							</div>
 						</PanelRow>
 					</PanelBody>
@@ -116,13 +62,13 @@ export default function SettingsPage(){
 							<div className='form-buttons'>
 								<Button
 									isPrimary
-									href={ support_url }
+									href='mailto:koen@tycoonwp.com'
 								>
 									{ __( 'Ask a question', 'site-import-for-gbp' ) }
 								</Button>
 								<Button
 									isTertiary
-									href='https://docs.digitaldistortion.dev/collection/15-product-sync-for-gbp'
+									href='https://docs.digitaldistortion.dev/collection/32-site-import-for-gbp'
 									icon={() => <Icon icon='book' />}
 									target='_blank'
 								>

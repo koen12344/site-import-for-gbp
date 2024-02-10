@@ -27,7 +27,7 @@ class GoogleMyBusiness {
 				'Authorization' => "Bearer {$this->access_token}"
 			],
 			'method'    => $method,
-			'body'      => $body ? json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) : null,
+			'body'      => $body ? wp_json_encode($body, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) : null,
 			'timeout'   => 20
 		]);
 		return $this->handle_response($response);
@@ -87,6 +87,14 @@ class GoogleMyBusiness {
 			'pageToken'     => $pageToken,
 		]);
 	}
+
+	public function list_media($name, $pageSize, $pageToken = ''){
+		return $this->do_request("https://mybusiness.googleapis.com/v4/{$name}/media", [
+			'pageSize'      => $pageSize,
+			'pageToken'     => $pageToken,
+		]);
+	}
+
 	public function get_account($name){
 		return $this->do_request("https://mybusinessaccountmanagement.googleapis.com/v1/{$name}");
 	}

@@ -2,6 +2,7 @@
 
 namespace Koen12344\SiteImportForGbp\Subscribers;
 
+use Koen12344\SiteImportForGbp\Admin\AdminPage;
 use Koen12344\SiteImportForGbp\EventManagement\EventManager;
 use Koen12344\SiteImportForGbp\EventManagement\EventManagerAwareSubscriberInterface;
 
@@ -10,9 +11,11 @@ class AdminPageSubscriber implements EventManagerAwareSubscriberInterface {
 	/**
 	 * @var EventManager
 	 */
-	
-	private $event_manager;
 
+	private $event_manager;
+	/**
+	 * @var AdminPage
+	 */
 	private $admin_page;
 	/**
 	 * @var mixed
@@ -44,10 +47,25 @@ class AdminPageSubscriber implements EventManagerAwareSubscriberInterface {
 			$this->dashicon
 		);
 
+		//todo: temporary messy solution to add the plugin as an importer
+		register_importer(
+			$this->admin_page->get_menu_slug(),
+			__('Site import for Google Business Profile', 'site-import-for-gbp'),
+			__('Import Posts, Reviews and Images from Google Business Profile', 'site-import-for-gbp'),
+			[$this->admin_page, 'render_page']
+		);
+
 		$this->event_manager->add_callback("admin_print_scripts-{$page_hook}", [$this->admin_page, 'load_js_assets']);
 	}
 
 	function register_js_assets(){
 		$this->admin_page->register_js_assets();
+
+		//todo: this as well
+		global $pagenow;
+
+		if ($pagenow === 'admin.php' && isset($_GET['import']) && $_GET['import'] === 'site-import-for-gbp') {
+			$this->admin_page->load_js_assets();
+		}
 	}
 }

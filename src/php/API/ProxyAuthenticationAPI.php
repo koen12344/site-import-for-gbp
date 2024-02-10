@@ -10,7 +10,7 @@ use UnexpectedValueException;
 
 class ProxyAuthenticationAPI {
 
-	const AUTH_API_URL = 'https://app.posttogmb.com/';
+	const AUTH_API_URL = 'https://app.siteimportforgbp.com/';
 
 	/**
 	 * @var \WP_Http

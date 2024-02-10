@@ -6,7 +6,7 @@ namespace Koen12344\SiteImportForGbp\API;
 
 class ProxyGMBAPI extends GoogleMyBusiness {
 
-	protected $proxy_api_url = 'https://app.posttogmb.com/passthrough';
+	protected $proxy_api_url = 'https://app.siteimportforgbp.com/passthrough';
 
 
 //	protected function get_fs_authorization_header(){
@@ -36,7 +36,7 @@ class ProxyGMBAPI extends GoogleMyBusiness {
 		$response = $this->transport->request($passthrough_url, [
 			'headers'	=> $headers,
 			'method'    => $method,
-			'body'      => $body ? json_encode($body) : null,
+			'body'      => $body ? wp_json_encode($body) : null,
 			'timeout'   => 20
 		]);
 		return $this->handle_response($response);

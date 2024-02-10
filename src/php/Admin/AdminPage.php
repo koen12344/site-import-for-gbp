@@ -57,6 +57,7 @@ class AdminPage {
 			'support_url'           => esc_url(admin_url('admin.php?page=site-import-for-gbp-contact')),
 			'auth_url'              => esc_url(admin_url('admin-post.php?action=sifg_auth_redirect')),
 			'is_google_configured'  => !empty($this->user_manager->get_accounts()),
+			'is_multisite'          => is_multisite(),
 		]);
 		wp_set_script_translations('sifg-admin-script', 'site-import-for-gbp', $this->plugin_path . 'languages');
 
