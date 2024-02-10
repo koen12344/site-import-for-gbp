@@ -2,26 +2,29 @@
 
 namespace Koen12344\SiteImportForGbp\RestAPI;
 
-use Koen12344\SiteImportForGbp\Logger\ImportLogger;
+use Koen12344\SiteImportForGbp\BackgroundProcessing\BackgroundProcess;
+
 use WP_REST_Request;
 
-class GetImportLogEndpoint implements EndpointInterface {
-
+class CancelImportEndpoint  implements EndpointInterface {
 	/**
-	 * @var ImportLogger
+	 * @var BackgroundProcess
 	 */
-	private $logger;
+	private $process;
 
-	public function __construct(ImportLogger $logger){
+	public function __construct(BackgroundProcess $process){
 
-		$this->logger = $logger;
+		$this->process = $process;
 	}
 	public function get_arguments(): array {
 		return [];
 	}
 
 	public function respond( WP_REST_Request $request ) {
-		return new \WP_REST_Response(['log' => esc_html($this->logger->read())]);
+		if($this->process->is_processing()){
+			$this->process->cancel();
+		}
+		return new \WP_REST_Response(true);
 	}
 
 	public function validate( WP_REST_Request $request ): bool {
@@ -33,6 +36,6 @@ class GetImportLogEndpoint implements EndpointInterface {
 	}
 
 	public function get_path(): string {
-		return '/import/log/';
+		return '/import/confirm/';
 	}
 }

@@ -4,6 +4,7 @@ namespace Koen12344\SiteImportForGbp\Configuration;
 
 use Koen12344\SiteImportForGbp\DependencyInjection\Container;
 use Koen12344\SiteImportForGbp\DependencyInjection\ContainerConfigurationInterface;
+use Koen12344\SiteImportForGbp\RestAPI\CancelImportEndpoint;
 use Koen12344\SiteImportForGbp\RestAPI\ConfirmImportEndpoint;
 use Koen12344\SiteImportForGbp\RestAPI\DisconnectGoogleEndpoint;
 use Koen12344\SiteImportForGbp\RestAPI\DispatchImportEndpoint;
@@ -24,6 +25,7 @@ class RestApiConfiguration implements ContainerConfigurationInterface {
 				'import_status_endpoint'   => new ImportStatusEndpoint($container['service.import_process'], $container['service.import_logger']),
 				'import_log_endpoint'       => new GetImportLogEndpoint($container['service.import_logger']),
 				'confirm_import_endpoint'   => new ConfirmImportEndpoint($container['service.import_logger']),
+				'cancel_import_endpoin'     => new CancelImportEndpoint($container['service.import_process']),
 				];
 		});
 	}

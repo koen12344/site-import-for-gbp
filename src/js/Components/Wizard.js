@@ -73,6 +73,16 @@ export default function Wizard(){
 			.finally(() => setDispatching(false));
 	}
 
+	const cancelImport = function(){
+		setCancelling(true);
+		apiFetch({path: '/sifg/v1/import/cancel'}).then((data) => {}).catch((error) => {
+			createErrorNotice( __('Could not cancel import', 'site-import-for-gbp'), {
+				type: 'snackbar',
+			} );
+		})
+			.finally();
+	}
+
 	useEffect(() => {
 		const checkImportStatus = () => {
 			apiFetch({path: '/sifg/v1/import/status'}).then((data) => {
@@ -182,7 +192,7 @@ export default function Wizard(){
 				{/*	checked={selectedOptions.reviews}*/}
 				{/*/>*/}
 				<div className='form-buttons'>
-					<Button onClick={()=>setWizardStarted(false)} isSecondary variant='secondary'>{__('Cancel', 'site-import-for-gbp')}</Button>
+					<Button onClick={()=>setWizardStep('connect')} isSecondary variant='secondary'>{__('Cancel', 'site-import-for-gbp')}</Button>
 					<Button onClick={dispatchImport} disabled={ isDispatching} isPrimary variant='primary'>					{
 						isDispatching ? (
 							<>
@@ -201,8 +211,15 @@ export default function Wizard(){
 			<Fragment>
 				<p><Spinner/>{__('Import is currently in progress, and running in the background. You may stay here and wait for it to complete or leave this page. Up to you!', 'site-import-for-gbp')}</p>
 				<div className='form-buttons'>
-					<Button onClick='' isSecondary
-							variant='secondary'>{__('Cancel import', 'site-import-for-gbp')}</Button>
+					<Button onClick={ cancelImport } isSecondary variant='secondary' disabled={cancelling}>{
+						cancelling ? (
+								<>
+									<Spinner />
+									{__('Cancelling...','site-import-for-gbp')}
+								</>
+							) :
+						__('Cancel import', 'site-import-for-gbp')
+					}</Button>
 				</div>
 			</Fragment>
 	);

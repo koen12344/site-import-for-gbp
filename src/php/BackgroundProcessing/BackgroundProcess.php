@@ -207,7 +207,13 @@ class BackgroundProcess extends \SIFG_Vendor_WP_Background_Process {
 					'_sifg_name'          => $post->name,
 					'_sifg_gbp_post_data' => $post,
 				]
-			]);
+			], true, false);
+
+			if(is_wp_error($post_id)){
+				//translators: %1$s is Google Location identifier, %2$s is the error message
+				$this->logger->add(sprintf(__('Failed to import post into %1$s WordPress: %2$s', 'site-import-for-gbp'), $post->name, $post_id->get_error_message()));
+				continue;
+			}
 
 
 

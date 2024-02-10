@@ -8,7 +8,7 @@ class ImportLogger {
 	public function add($message){
 		$log = $this->read();
 		$timestamp = "[".current_time('mysql')."] ";
-		$message = $timestamp.esc_html($message)."\n";
+		$message = $timestamp.$message."\n";
 		$log = $message.$log;
 
 		$this->save($log);
