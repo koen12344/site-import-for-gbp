@@ -5,6 +5,8 @@
 .editorconfig
 .eslintignore
 .eslintrc
+.idea
+.circleci
 .git
 .gitignore
 .github
