@@ -22,11 +22,13 @@ Preserve your online presence! As Google phases out its Business Websites featur
 
 Don't wait for the clock to run out on your Google Business Website. Install **Site Import for GBP** and step into a world of possibilities with WordPress.
 
+[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/KoenReus.svg?style=social&label=Follow%20%40KoenReus)](https://twitter.com/KoenReus)
+
 == Installation ==
 
 Installing **Site Import for GBP** and importing your Google Business website posts and images is easy!
 
-1. Download the plugin directly or find it in the WordPress plugin repository by searching for "Site Import for Google Business Profile" within Plugins > Add New
+1. Download [the latest version](https://github.com/koen12344/site-import-for-gbp/releases/latest) of the plugin directly or find it in the WordPress plugin repository by searching for "Site Import for Google Business Profile" within Plugins > Add New
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to the Site Import for GBP section and click "Connect to Google Business Profile"
 1. Connect the Google account that contains the business location that you want to import and proceed through the authentication wizard
