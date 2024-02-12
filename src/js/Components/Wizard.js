@@ -172,7 +172,7 @@ export default function Wizard(){
 	}else if(wizardStep === 'start'){
 		return (
 			<Fragment>
-				<p>{sprintf(__('Let\'s import your %s GBP listing website! Select the items you want to import below', 'product-sync-for-gbp'), wizardLocation.title)}</p>
+				<p>{/* translators: %s is name of the location */ sprintf(__("Let's import your %s GBP listing website! Select the items you want to import below", 'site-import-for-gbp'), wizardLocation.title)}</p>
 				<ToggleControl
 					label={__('Import posts', 'site-import-for-gbp')}
 					help={__('Will import your Google Business Profile posts with associated images', 'site-import-for-gbp')}

@@ -69,10 +69,12 @@ class ProxyAuthenticationAPI {
 	/**
 	 * @throws Exception
 	 */
-	public function get_authentication_url($return_url, $nonce){
+	public function get_authentication_url($return_url, $nonce, $success_hook, $failure_hook){
 		return $this->do_request( self::AUTH_API_URL . 'getlink', [
 			'request_key'   => $nonce,
 			'post_url'      => $return_url,
+			'success_hook'    => $success_hook,
+			'failure_hook'       => $failure_hook,
 		]);
 	}
 

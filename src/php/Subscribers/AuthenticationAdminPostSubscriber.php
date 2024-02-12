@@ -29,7 +29,8 @@ class AuthenticationAdminPostSubscriber implements SubscriberInterface {
 	public static function get_subscribed_hooks(): array {
 		return [
 			'admin_post_sifg_auth_redirect'         => 'auth_redirect',
-			'admin_post_pgmb_google_authorized'     => 'fetch_tokens',
+			'admin_post_sifg_auth_success'     => 'fetch_tokens',
+			'admin_post_sifg_auth_failed'           => 'auth_failed',
 		];
 	}
 
@@ -46,7 +47,7 @@ class AuthenticationAdminPostSubscriber implements SubscriberInterface {
 		}
 
 		try{
-			$response = $this->auth_api->get_authentication_url(esc_url(admin_url('admin-post.php')), wp_create_nonce('sifg_auth_redirect'));
+			$response = $this->auth_api->get_authentication_url(esc_url(admin_url('admin-post.php')), wp_create_nonce('sifg_auth_redirect'), 'sifg_auth_success', 'sifg_auth_failed');
 		}catch(\Exception $e){
 			//translators: %s is error message
 			wp_die(sprintf(__('Could not generate authentication URL: %s', 'site-import-for-gbp'), $e->getMessage()),'', $this->wp_die_args());
@@ -86,6 +87,24 @@ class AuthenticationAdminPostSubscriber implements SubscriberInterface {
 
 		wp_safe_redirect(admin_url('admin.php?page=site-import-for-gbp'));
 		exit;
+	}
+
+	/**
+	 * When the auth request fails, for example when the user presses the cancel button on the Google dialog
+	 */
+	public function auth_failed(){
+		if(!wp_verify_nonce(sanitize_key($_REQUEST['state']), 'sifg_auth_redirect')){ wp_die(__('Invalid nonce', 'site-import-for-gbp'),'', $this->wp_die_args()); }
+
+		$reason = '';
+
+		if(!empty($_REQUEST['error'])){
+			switch($_REQUEST['error']){
+				case 'access_denied':
+					$reason = __('The request was cancelled', 'site-import-for-gbp');
+			}
+		}
+
+		wp_die(sprintf(__('The authorization failed: %s', 'site-import-for-gbp'), $reason),'', $this->wp_die_args());
 	}
 
 }

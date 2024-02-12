@@ -5,7 +5,7 @@ Tags: google my business, google business profile, gbp, gmb, import
 Requires at least: 5.0
 Tested up to: 6.4.3
 Requires PHP: 7.2
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,6 +57,12 @@ The plugin is capped at importing your most recent 100 gallery images and 50 pos
 3. Select what to import
 
 == Changelog ==
+
+= 0.1.1 =
+
+* Fix: conflict with Post to Google My Business authorization when both plugins are activated
+* Fix: Some small textdomain and string issues
+* Added: Error page for failed authentication
 
 = 0.1.0 =
 

@@ -7,7 +7,8 @@
  * Author URI:      https://koenreus.com
  * Text Domain:     site-import-for-gbp
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.1.1
+ * Network:         true
  *
  * @package         Site_Import_For_Gbp
  */

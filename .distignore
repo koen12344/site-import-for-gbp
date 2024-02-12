@@ -44,3 +44,4 @@ node_modules
 *.zip
 src/js
 assets
+src/php/Premium

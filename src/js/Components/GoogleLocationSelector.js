@@ -69,7 +69,7 @@ export default function GoogleLocationSelector({ isGoogleConfigured, startWizard
 						onChange={ ( newGroup ) => getGroup( newGroup ) }
 						__nextHasNoMarginBottom
 					/>
-					<Button isSmall={true} variant="secondary" onClick={()=> getGroup(group, pageToken, true) } icon={() => <Icon icon='update' />}>{__("Refresh locations", "product-sync-for-gbp")}</Button>
+					<Button isSmall={true} variant="secondary" onClick={()=> getGroup(group, pageToken, true) } icon={() => <Icon icon='update' />}>{__("Refresh locations", "site-import-for-gbp")}</Button>
 				</div>
 				<LocationList hasResolved={hasResolved} locations={locations} startWizard={startWizard} />
 				<Pagination hasResolved={hasResolved} locations={locations} getGroup={getGroup} currentGroup={group} />
@@ -98,8 +98,8 @@ function Pagination({hasResolved, locations, getGroup, currentGroup}){
 	}
 	return (
 		<div className="sifg-selector-controls-bottom">
-			{prevPages.length > 1 && <Button variant="secondary" isSmall={true} onClick={() => switchPage(true) }>{__('Previous page', 'product-sync-for-gbp')}</Button>}
-			{locations.nextPageToken && <Button variant="secondary" isSmall={true} onClick={ () => switchPage(false) }>{__('Next page', 'product-sync-for-gbp')}</Button>}
+			{prevPages.length > 1 && <Button variant="secondary" isSmall={true} onClick={() => switchPage(true) }>{__('Previous page', 'site-import-for-gbp')}</Button>}
+			{locations.nextPageToken && <Button variant="secondary" isSmall={true} onClick={ () => switchPage(false) }>{__('Next page', 'site-import-for-gbp')}</Button>}
 		</div>
 	);
 }
